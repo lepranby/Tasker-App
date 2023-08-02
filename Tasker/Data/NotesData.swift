@@ -25,7 +25,7 @@ struct Note : Codable, Identifiable {
     
     /// Description:
     /// Грузим данные.
-    /// Показываем приветственную заметку.
+    /// Инициализируем в базе первоисточник информации как приветственную заметку.
 
     init() {
         if let data = UserDefaults.standard.data(forKey: NOTES_KEY) {
@@ -34,11 +34,11 @@ struct Note : Codable, Identifiable {
                 return
             }
         }
-        notes = [Note(title: "Introducing.", content: "Привет! Это мой дипломный проект написанный на SwiftUI. Предлагаю потратить пару минут на знакомства с приложением. Enjoy! 👋🏼🤓", timeStamp: date.getFormattedDate(format: "dd.MM HH:mm"))]
+        notes = [Note(title: "Introducing.", content: "Привет! Это мой дипломный проект написанный на SwiftUI. Предлагаю потратить пару минут на знакомства с приложением. Enjoy! 👋🏼🤓", timeStamp: date.getFormattedDate(format: "HH:mm dd.MM.yyyy"))]
     }
     
     func addNote(title: String, content: String) {
-        let tempNote = Note(title: title, content: content, timeStamp: date.getFormattedDate(format: "dd.MM HH:mm"))
+        let tempNote = Note(title: title, content: content, timeStamp: date.getFormattedDate(format: "HH:mm dd.MM.yyyy"))
         notes.insert(tempNote, at: 0)
         saveData()
     }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NoteDetail : View {
+    
     var title: String
     var content: String
     

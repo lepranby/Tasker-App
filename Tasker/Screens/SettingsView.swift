@@ -7,7 +7,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @StateObject private var security = SecurityLock()
+    @StateObject private var security = SecurityData()
     @Environment(\.scenePhase) var scenePhase
     
     // MARK: - свитчер на FaceID
@@ -68,6 +68,17 @@ struct SettingsView: View {
                 }
                 Section {
                     HStack {
+                        Link("ReadMe об изменениях", destination: URL(string: "https://github.com/lepranby/Tasker-App/blob/main/Tasker/App/DiplomaReadme.md")!)
+                            .fontWeight(.light)
+                            .foregroundColor(.black)
+                        Spacer()
+                        Image(systemName: "doc.text")
+                    }
+                } header: {
+                    Text("Документация")
+                }
+                Section {
+                    HStack {
                         Text ("Автор")
                             .fontWeight(.light)
                         Spacer ()
@@ -84,7 +95,7 @@ struct SettingsView: View {
                             .foregroundColor(.black)
                     }
                     HStack {
-                        Text ("Twitter")
+                        Text ("Twitter / X")
                             .fontWeight(.light)
                         Spacer ()
                         Link("aleksejDev", destination: URL(string: "https://twitter.com/aleksejdev?s=11")!)
@@ -94,7 +105,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Об авторе")
                 } footer: {
-                    Text("Группа I29-onl в школе TeachMeSkills. Это мой дипломный проект. Всем спасибо за внимание и встретимся на просторах AppStore 👋🏼☺️")
+                    Text("Группа I29-onl в школе TeachMeSkills. Это мой дипломный проект. Всем спасибо за внимание и встретимся на просторах AppStore 🤓")
                         .padding(.top, 10)
                 }
             }

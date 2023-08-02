@@ -7,9 +7,8 @@ import SwiftUI
 
 struct TabBar: View {
     
-    @StateObject private var security = SecurityLock()
+    @StateObject private var security = SecurityData()
     @Environment(\.scenePhase) var scenePhase
-    @State private var animate: Bool = false
     
     var body: some View {
         TabView {

@@ -1,4 +1,4 @@
-//  SecurityController.swift
+//  SecurityData.swift
 //  Tasker
 //
 //  Created by Aleksej Shapran on 17.07.23
@@ -7,7 +7,7 @@ import SwiftUI
 import LocalAuthentication
 
 @MainActor
-class SecurityLock: ObservableObject {
+class SecurityData: ObservableObject {
     
     var error: NSError?
     

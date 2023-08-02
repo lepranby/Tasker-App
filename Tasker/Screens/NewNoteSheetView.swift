@@ -20,17 +20,17 @@ struct NewNoteSheetView: View {
                     TextField("", text: $title)
                         .submitLabel(.continue)
                 }
-                Section (header: Text("Текст заметки")){
+                Section {
                     TextEditor(text: $content)
                         .submitLabel(.done)
                         .font(.callout)
                         .fontWeight(.light)
-                    VStack (alignment: .center) {
-                        Text("Рекомендуемое количество символов: \(content.count)/120")
-                            .font(.footnote)
-                            .fontWeight(.light)
-                            .multilineTextAlignment(.leading)
-                    }
+                } header: { Text("Заметка") } footer: {
+                    Text("Рекомендуемое количество символов: \(content.count)/120")
+                        .font(.footnote)
+                        .fontWeight(.light)
+                        .multilineTextAlignment(.leading)
+                        .padding(.top, 10)
                 }
             }
             .padding(.top, -5)
@@ -38,7 +38,6 @@ struct NewNoteSheetView: View {
             .navigationBarTitleDisplayMode(.inline)
             
             .toolbar(content: {
-                
                 ToolbarItem (placement: .navigationBarLeading) {
                     Button {
                         dismiss()
@@ -50,22 +49,27 @@ struct NewNoteSheetView: View {
                 }
                 
                 ToolbarItem {
-                    NavigationLink {} label: {
-                        Button {
-                            if content.isEmpty {
-                                let empty = "Нет описания."
-                                notes.addNote(title: title, content: empty)
-                                dismiss()
-                            } else {
-                                notes.addNote(title: title, content: content)
-                                dismiss()
-                            }
-                        } label: {
-                            Label("Сохранить", systemImage: "checkmark")
-                                .labelStyle(.iconOnly)
+                        NavigationLink {} label: {
+                            Button {
+                                if content.isEmpty {
+                                    let empty = "Нет описания."
+                                    withAnimation (Animation.easeOut(duration: 15)) {
+                                        notes.addNote(title: title, content: empty)
+                                    }
+                                    dismiss()
+                                } else {
+                                    withAnimation (Animation.easeIn(duration: 15)) {
+                                        notes.addNote(title: title, content: content)
+                                    }
+                                    dismiss()
+                                }
+                            } label: {
+                                Label("Сохранить", systemImage: "checkmark")
+                                    .labelStyle(.iconOnly)
                                 .tint(.teal) }
-                    }
-                    .disabled(title.isEmpty)
+                        }
+                        .disabled(title.isEmpty)
+                    
                 }
             })
         }

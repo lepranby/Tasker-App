@@ -8,29 +8,22 @@ import SwiftUI
 struct NoteView: View {
     
     @StateObject private var vm = ViewModel()
-    @State private var newNoteSheetIsShowing = false
-    @State private var fullNoteViewIsShowing = false
     @EnvironmentObject var notes: Notes
+    
+    @State private var newNoteSheetIsShowing = false
     @State private var searchText = ""
     @State private var isFavorite = false
     @State private var showingAlert = false
     
     var body: some View {
         
-        // MARK: - Поиск
+        // MARK: - Фильтрую содержимое относительно состояния поиска
         
-        var filteredNotes: [Note] {
-            if searchText.isEmpty {
-                return notes.notes
-            } else {
-                return notes.notes.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
-            }
-        }
-        
-        // MARK: - Секция ячеек
+        var filteredNotes: [Note] { if searchText.isEmpty { return notes.notes } else { return notes.notes.filter { $0.title.localizedCaseInsensitiveContains(searchText) }}}
         
         VStack {
             NavigationView {
+                // MARK: - Секция ячеек
                 List {
                     if filteredNotes.isEmpty {
                         Section {
@@ -62,28 +55,35 @@ struct NoteView: View {
                                         .fontWeight(.light)
                                         .padding(.vertical)
                                         .padding(.bottom, -14)
+                                    // MARK: - контекстное меню при лонг тапе
+                                        .contextMenu {
+                                            ShareLink("Поделиться",
+                                                item: note.content,
+                                                preview: SharePreview("Поделиться \(note.title)")
+                                            )
+                                            Button {} label: { Label("Закрыть", systemImage: "xmark") }
+                                        } preview: {
+                                            VStack {
+                                                Text(note.content)
+                                                    .frame(width: 320)
+                                                    .font(.subheadline)
+                                                    .fontWeight(.light)
+                                                    .padding()
+                                            }
+                                            .frame(width: 400, height: 450)
+                                        }
                                     HStack {
-                                        Text("Создана \(note.timeStamp)")
+                                        Text("Создана в \(note.timeStamp)")
                                             .foregroundColor(.black.opacity(0.6))
                                             .font(.caption2)
                                             .fontWeight(.regular)
                                         Spacer()
                                         
-                                        // MARK: - Подробный вид
                                         
-                                        Image(systemName: "text.magnifyingglass")
-                                            .foregroundColor(.black.opacity(0.6))
-                                            .onTapGesture {
-                                                withAnimation {
-                                                    self.fullNoteViewIsShowing.toggle()
-                                                }
-                                            }
-                                            
-                                           
-                                        // MARK: - лайк
-                                        // Реакция на тап иконки и при свайпе лайка - легкая вибрация
                                         
-                                        Image(systemName: vm.contains(note) ? "suit.heart.fill" : "suit.heart")
+                                        // MARK: - Метка "Важное" (лайк)
+                                        
+                                        Image(systemName: vm.contains(note) ? "checkmark.circle" : "circle.dashed")
                                             .animation(.spring(response: 1.0, dampingFraction: 0.6))
                                             .foregroundColor(vm.contains(note) ? CustomColor.like : Color.black.opacity(0.6))
                                             .onTapGesture {
@@ -97,39 +97,27 @@ struct NoteView: View {
                                             }
                                     }
                                 }
-                                .listRowSeparatorTint(.black.opacity(0.2))
+                                .listRowSeparatorTint(.black.opacity(0.18))
+                                
+                                // MARK: - Свайпы
                                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                    ShareLink(
+                                        item: note.content,
+                                        preview: SharePreview("Поделиться \(note.title)")
+                                    )
+                                    .tint(.green)
+                                    .labelStyle(.iconOnly)
+                                    .frame(width: 20, height: 10, alignment: .center)
                                     Button {
                                         vm.toggleFav(item: note)
                                         let vibration = UIImpactFeedbackGenerator(style: .soft)
                                         vibration.impactOccurred()
                                     } label: {
-                                        Label("", systemImage: "heart.fill")
+                                        withAnimation (Animation.easeOut(duration: 5)) {
+                                            Image(systemName: vm.contains(note) ? "xmark.circle" : "circle.dashed")
+                                        }
                                     }
                                     .tint(.cyan)
-                                    Button {
-                                        withAnimation {
-                                            self.fullNoteViewIsShowing.toggle()
-                                        }
-                                        let vibration = UIImpactFeedbackGenerator(style: .soft)
-                                        vibration.impactOccurred()
-                                    } label: {
-                                        Label("", systemImage: "text.magnifyingglass")
-                                    }
-                                    .tint(.green)
-                                }
-                                .sheet(isPresented: $fullNoteViewIsShowing) {
-                                    NavigationLink(destination: NoteDetail(title: note.title, content: note.content)) {
-                                        VStack(alignment: .leading) {
-                                            Text(note.title)
-                                            Text(note.content)
-                                                .font(.subheadline)
-                                                .foregroundColor(.gray)
-                                        }
-                                    }
-                                    
-                                    
-//                                    NoteDetail(title: note.title, content: note.content)
                                 }
                             }
                             .onMove(perform: activateMove)
@@ -144,7 +132,7 @@ struct NoteView: View {
                                 Text ("Снять все метки")
                                     .fontWeight(.light)
                                 Spacer ()
-                                Button { vm.toggleAll() } label: { Image (systemName: "heart.slash") }
+                                Button { vm.toggleAll() } label: { Image (systemName: "xmark.circle") }
                                     .foregroundColor (.cyan)
                             }
                             .listRowBackground(LinearGradient(colors: [CustomColor.accentTint, .white, .white.opacity(0.8)], startPoint: .trailing, endPoint: .leading))
@@ -181,7 +169,7 @@ struct NoteView: View {
                             .tint(.black)
                     }
                 }
-                .navigationTitle("Заметки ")
+                .navigationTitle("Заметки")
                 .navigationBarTitleDisplayMode(.automatic)
                 .searchable(text: $searchText , prompt: "Поиск")
             }
@@ -209,12 +197,14 @@ struct NoteView: View {
     }
 }
 
+#if DEBUG
 struct NoteView_Previews: PreviewProvider {
     static var previews: some View {
-        NoteView()
-            .environmentObject(Notes())
-        //            .previewDevice(PreviewDevice(rawValue: "iPhone 12 Mini"))
-        //            .previewDisplayName("iPhone 12 Mini")
+        TabBar()
+//        NoteView()
+//            .environmentObject(Notes())
+//                    .previewDevice(PreviewDevice(rawValue: "iPhone 12 Mini"))
+//                    .previewDisplayName("iPhone 12 Mini")
     }
 }
-
+#endif

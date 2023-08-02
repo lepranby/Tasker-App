@@ -6,6 +6,8 @@
 import Foundation
 import SwiftUI
 
+// MARK: - Стиль кнопки который используется в экране блокировки приложения с включенной функцией FaceID.
+
 struct CustomButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label

@@ -9,18 +9,14 @@ import SwiftUI
 
 struct LockedView: View {
     
-    @EnvironmentObject var security: SecurityLock
+    @EnvironmentObject var security: SecurityData
     
     var body: some View {
         ZStack {
             
-            // MARK: - Кастомизация внешки
-            
             LinearGradient(colors: [.clear, .cyan.opacity(0.6), .clear], startPoint: .top, endPoint: .bottom)
                 .opacity(0.5)
                 .blur(radius: 15)
-            
-            // MARK: - UI
             
             VStack {
                 Spacer()

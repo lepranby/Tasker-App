@@ -8,7 +8,6 @@ import SwiftUI
 struct HomeView: View {
     
     @StateObject var notes = Notes()
-    @State private var sheetIsShowing = false
     
     var body: some View {
         NavigationView {

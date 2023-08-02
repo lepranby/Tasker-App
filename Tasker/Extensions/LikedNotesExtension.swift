@@ -1,16 +1,14 @@
-//  NoteViewExtension.swift
+//  LikedNotesExtension.swift
 //  Tasker
 //
-//  Created by Aleksej Shapran on 04.07.23
+//  Created by Aleksej Shapran on 30.07.23
 
 import Foundation
 import SwiftUI
 
-// MARK: - В этом экстеншне хранится вся модель по заметкам которые отмечены лайком.
-
-extension NoteView {
+extension LikedNotesView {
     
-    final class ViewModel: ObservableObject {
+    final class LikedModel: ObservableObject {
         
         @Published var items = [Note]()
         @Published var showLiked = false

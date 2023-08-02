@@ -21,10 +21,9 @@
 		266AE1E72A4EE0C300733554 /* NewNoteSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266AE1E62A4EE0C300733554 /* NewNoteSheetView.swift */; };
 		26E3AD632A6AA4FF0089B28B /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3AD622A6AA4FF0089B28B /* CustomColor.swift */; };
 		26E3AD6D2A7080E20089B28B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3AD6C2A7080E20089B28B /* CustomButton.swift */; };
-		26E3AD702A7152080089B28B /* NoteDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3AD6F2A7152080089B28B /* NoteDetail.swift */; };
-		26E64C4E2A654DB900A3855A /* SecurityLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E64C4D2A654DB900A3855A /* SecurityLock.swift */; };
+		26E64C4E2A654DB900A3855A /* SecurityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E64C4D2A654DB900A3855A /* SecurityData.swift */; };
 		26E64C512A654F4300A3855A /* LockedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E64C502A654F4300A3855A /* LockedView.swift */; };
-		26E64C542A65687F00A3855A /* SecurityLockExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E64C532A65687F00A3855A /* SecurityLockExtension.swift */; };
+		26E64C542A65687F00A3855A /* SecurityDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E64C532A65687F00A3855A /* SecurityDataExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,11 +42,10 @@
 		266AE1E62A4EE0C300733554 /* NewNoteSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteSheetView.swift; sourceTree = "<group>"; };
 		26E3AD622A6AA4FF0089B28B /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
 		26E3AD6C2A7080E20089B28B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
-		26E3AD6F2A7152080089B28B /* NoteDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetail.swift; sourceTree = "<group>"; };
-		26E64C4D2A654DB900A3855A /* SecurityLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityLock.swift; sourceTree = "<group>"; };
+		26E64C4D2A654DB900A3855A /* SecurityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityData.swift; sourceTree = "<group>"; };
 		26E64C502A654F4300A3855A /* LockedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedView.swift; sourceTree = "<group>"; };
 		26E64C522A6558ED00A3855A /* DiplomaReadme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = DiplomaReadme.md; sourceTree = "<group>"; };
-		26E64C532A65687F00A3855A /* SecurityLockExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityLockExtension.swift; sourceTree = "<group>"; };
+		26E64C532A65687F00A3855A /* SecurityDataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityDataExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				261B58042A543C4200B0AD43 /* NoteViewExtension.swift */,
-				26E64C532A65687F00A3855A /* SecurityLockExtension.swift */,
+				26E64C532A65687F00A3855A /* SecurityDataExtension.swift */,
 				26E3AD622A6AA4FF0089B28B /* CustomColor.swift */,
 			);
 			path = Extensions;
@@ -153,7 +151,6 @@
 			children = (
 				266AE1E02A4EDFDE00733554 /* HomeView.swift */,
 				266AE1E42A4EE0A900733554 /* NoteView.swift */,
-				26E3AD6F2A7152080089B28B /* NoteDetail.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -169,7 +166,7 @@
 		26E64C4F2A654DBF00A3855A /* Security */ = {
 			isa = PBXGroup;
 			children = (
-				26E64C4D2A654DB900A3855A /* SecurityLock.swift */,
+				26E64C4D2A654DB900A3855A /* SecurityData.swift */,
 				26E64C502A654F4300A3855A /* LockedView.swift */,
 			);
 			path = Security;
@@ -249,18 +246,17 @@
 				266AE1DB2A4EDF5C00733554 /* TabBar.swift in Sources */,
 				266AE1DD2A4EDFAA00733554 /* SettingsView.swift in Sources */,
 				266AE1E52A4EE0A900733554 /* NoteView.swift in Sources */,
-				26E3AD702A7152080089B28B /* NoteDetail.swift in Sources */,
 				261B58052A543C4200B0AD43 /* NoteViewExtension.swift in Sources */,
 				266AE1E12A4EDFDE00733554 /* HomeView.swift in Sources */,
 				266AE1CF2A4EDEE900733554 /* ContentView.swift in Sources */,
-				26E64C4E2A654DB900A3855A /* SecurityLock.swift in Sources */,
+				26E64C4E2A654DB900A3855A /* SecurityData.swift in Sources */,
 				26E3AD632A6AA4FF0089B28B /* CustomColor.swift in Sources */,
 				266AE1CD2A4EDEE900733554 /* TaskerApp.swift in Sources */,
 				261B58022A543BA900B0AD43 /* LikesData.swift in Sources */,
 				26E3AD6D2A7080E20089B28B /* CustomButton.swift in Sources */,
 				266AE1E72A4EE0C300733554 /* NewNoteSheetView.swift in Sources */,
 				266AE1E32A4EE08800733554 /* NotesData.swift in Sources */,
-				26E64C542A65687F00A3855A /* SecurityLockExtension.swift in Sources */,
+				26E64C542A65687F00A3855A /* SecurityDataExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
