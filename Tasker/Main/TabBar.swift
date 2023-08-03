@@ -48,12 +48,11 @@ struct TabBar: View {
                 break
             }
         })
-        .sheet(isPresented: $security.isLocked) {
+        .fullScreenCover(isPresented: $security.isLocked, content: {
             LockedView()
                 .environmentObject(security)
-                .opacity(50)
                 .interactiveDismissDisabled()
-        }
+        })
     }
 }
 

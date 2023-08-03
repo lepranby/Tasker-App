@@ -19,11 +19,11 @@ struct SettingsView: View {
                 security.appLockStateChange(value)
             })
             .tint(.cyan)
-            .sheet(isPresented: $security.isLocked) {
+            .fullScreenCover(isPresented: $security.isLocked, content: {
                 LockedView()
                     .environmentObject(security)
                     .interactiveDismissDisabled()
-            }
+            })
     }
     
     // MARK: - Главная вью

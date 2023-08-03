@@ -15,6 +15,8 @@ struct NoteView: View {
     @State private var isFavorite = false
     @State private var showingAlert = false
     
+    private let pasteboard = UIPasteboard.general
+    
     var body: some View {
         
         // MARK: - Фильтрую содержимое относительно состояния поиска
@@ -32,7 +34,7 @@ struct NoteView: View {
                                     .resizable()
                                     .frame(width: 30, height: 34)
                                 Spacer()
-                                Text("У Вас нет сохраненных заметок. Добавьте заметку.")
+                                Text("У Вас нет сохраненных записей. Коснитесь \(Image(systemName: "pencil.and.outline")) в правом верхнем углу, что бы добавить новую.")
                                     .font(.body)
                                     .fontWeight(.light)
                             }
@@ -50,7 +52,7 @@ struct NoteView: View {
                                         .padding(.bottom, -20)
                                     Text(note.content)
                                         .lineLimit(2)
-                                        .lineSpacing(2)
+                                        .lineSpacing(1)
                                         .font(.subheadline)
                                         .fontWeight(.light)
                                         .padding(.vertical)
@@ -58,19 +60,42 @@ struct NoteView: View {
                                     // MARK: - контекстное меню при лонг тапе
                                         .contextMenu {
                                             ShareLink("Поделиться",
-                                                item: note.content,
-                                                preview: SharePreview("Поделиться \(note.title)")
+                                                      item: note.title + "\n" + note.content,
+                                                      preview: SharePreview("Поделиться \"\(note.title)\"")
                                             )
-                                            Button {} label: { Label("Закрыть", systemImage: "xmark") }
+                                            Button {
+                                                    pasteboard.string = note.content
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {}
+                                            } label: {
+                                                Label("Скопировать текст", systemImage: "doc.on.doc")
+                                            }
+                                            Button {
+                                                print("Закрыто меню предпроссмотра")
+                                            } label: { Label("Закрыть", systemImage: "xmark") }
                                         } preview: {
-                                            VStack {
+                                            VStack(alignment: .leading) {
+                                                HStack {
+                                                    Text(note.title)
+                                                        .font(.title2)
+                                                        .foregroundColor(CustomColor.titleTint)
+                                                        .fontWeight(.light)
+                                                        .padding([.leading, .trailing], 16)
+                                                        .padding(.bottom, 2)
+                                                    Spacer()
+                                                    Image(systemName: vm.contains(note) ? "checkmark.circle" : "")
+                                                        .resizable()
+                                                        .frame(width: 22, height: 22, alignment: .center)
+                                                        .padding(.trailing, 20)
+                                                }
                                                 Text(note.content)
-                                                    .frame(width: 320)
+                                                    .lineSpacing(2)
                                                     .font(.subheadline)
                                                     .fontWeight(.light)
-                                                    .padding()
+                                                    .padding([.leading, .trailing], 16)
+                                                    .padding(.bottom, -5)
+                                                
                                             }
-                                            .frame(width: 400, height: 450)
+                                            .frame(width: 400, height: 500)
                                         }
                                     HStack {
                                         Text("Создана в \(note.timeStamp)")
@@ -78,8 +103,6 @@ struct NoteView: View {
                                             .font(.caption2)
                                             .fontWeight(.regular)
                                         Spacer()
-                                        
-                                        
                                         
                                         // MARK: - Метка "Важное" (лайк)
                                         
@@ -102,8 +125,8 @@ struct NoteView: View {
                                 // MARK: - Свайпы
                                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
                                     ShareLink(
-                                        item: note.content,
-                                        preview: SharePreview("Поделиться \(note.title)")
+                                        item: note.title + "\n" + note.content,
+                                        preview: SharePreview("Поделиться \"\(note.title)\"")
                                     )
                                     .tint(.green)
                                     .labelStyle(.iconOnly)
@@ -147,9 +170,11 @@ struct NoteView: View {
                                     .alert(isPresented:$showingAlert) {
                                         Alert(
                                             title: Text("Внимание!"),
-                                            message: Text("Вы уверенны, что хотите удалить все заметки? Выполняемые действия необратимы."),
+                                            message: Text("Вы уверенны, что хотите удалить все записи? Выполняемые действия необратимы."),
                                             primaryButton: .destructive(Text("Удалить")) {
-                                                cleaner()
+                                                withAnimation {
+                                                    cleaner()
+                                                }
                                             },
                                             secondaryButton: .cancel(Text("Отмена"))
                                         )
@@ -162,6 +187,7 @@ struct NoteView: View {
                         }
                     }
                 }
+                .scrollIndicators(.hidden)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button { withAnimation { self.newNoteSheetIsShowing.toggle() } } label: { Label("Добавить заметку", systemImage: "pencil.and.outline") }
@@ -201,10 +227,10 @@ struct NoteView: View {
 struct NoteView_Previews: PreviewProvider {
     static var previews: some View {
         TabBar()
-//        NoteView()
-//            .environmentObject(Notes())
-//                    .previewDevice(PreviewDevice(rawValue: "iPhone 12 Mini"))
-//                    .previewDisplayName("iPhone 12 Mini")
+        //        NoteView()
+        //            .environmentObject(Notes())
+        //                    .previewDevice(PreviewDevice(rawValue: "iPhone 12 Mini"))
+        //                    .previewDisplayName("iPhone 12 Mini")
     }
 }
 #endif
