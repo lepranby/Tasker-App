@@ -34,12 +34,12 @@ struct NoteView: View {
                                     .resizable()
                                     .frame(width: 30, height: 34)
                                 Spacer()
-                                Text("У Вас нет сохраненных записей. Коснитесь \(Image(systemName: "pencil.and.outline")) в правом верхнем углу, что бы добавить новую.")
+                                Text("У Вас няма захаваных запісаў. Краніце \(Image(systemName: "pencil.and.outline")) ў правым верхнім куце, што б дадаць новую.")
                                     .font(.body)
                                     .fontWeight(.light)
                             }
                         } header: {
-                            Text ("Заметки")
+                            Text ("Нататкі")
                         }
                     } else {
                         Section {
@@ -59,19 +59,22 @@ struct NoteView: View {
                                         .padding(.bottom, -14)
                                     // MARK: - контекстное меню при лонг тапе
                                         .contextMenu {
-                                            ShareLink("Поделиться",
+                                            Button {
+                                                print("Карточка создана и сохранена в фотоархив")
+                                            } label: { Label("Стварыць картку", systemImage: "camera.on.rectangle") }
+                                            ShareLink("Падзяліцца",
                                                       item: note.title + "\n" + note.content,
-                                                      preview: SharePreview("Поделиться \"\(note.title)\"")
+                                                      preview: SharePreview("Падзяліцца \"\(note.title)\"")
                                             )
                                             Button {
                                                     pasteboard.string = note.content
                                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {}
                                             } label: {
-                                                Label("Скопировать текст", systemImage: "doc.on.doc")
+                                                Label("Скапіяваць тэкст", systemImage: "doc.on.doc")
                                             }
                                             Button {
                                                 print("Закрыто меню предпроссмотра")
-                                            } label: { Label("Закрыть", systemImage: "xmark") }
+                                            } label: { Label("Закрыць", systemImage: "xmark") }
                                         } preview: {
                                             VStack(alignment: .leading) {
                                                 HStack {
@@ -82,9 +85,9 @@ struct NoteView: View {
                                                         .padding([.leading, .trailing], 16)
                                                         .padding(.bottom, 2)
                                                     Spacer()
-                                                    Image(systemName: vm.contains(note) ? "checkmark.circle" : "")
+                                                    Image(systemName: vm.contains(note) ? "exclamationmark.octagon" : "")
                                                         .resizable()
-                                                        .frame(width: 22, height: 22, alignment: .center)
+                                                        .frame(width: 20, height: 20, alignment: .center)
                                                         .padding(.trailing, 20)
                                                 }
                                                 Text(note.content)
@@ -98,7 +101,7 @@ struct NoteView: View {
                                             .frame(width: 400, height: 500)
                                         }
                                     HStack {
-                                        Text("Создана в \(note.timeStamp)")
+                                        Text("Створана ў \(note.timeStamp)")
                                             .foregroundColor(.black.opacity(0.6))
                                             .font(.caption2)
                                             .fontWeight(.regular)
@@ -106,8 +109,8 @@ struct NoteView: View {
                                         
                                         // MARK: - Метка "Важное" (лайк)
                                         
-                                        Image(systemName: vm.contains(note) ? "checkmark.circle" : "circle.dashed")
-                                            .animation(.spring(response: 1.0, dampingFraction: 0.6))
+                                        Image(systemName: vm.contains(note) ? "exclamationmark.octagon" : "circle.dashed")
+                                            .animation(.spring(response: 1.2, dampingFraction: 0.7))
                                             .foregroundColor(vm.contains(note) ? CustomColor.like : Color.black.opacity(0.6))
                                             .onTapGesture {
                                                 isFavorite.toggle()
@@ -126,7 +129,7 @@ struct NoteView: View {
                                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
                                     ShareLink(
                                         item: note.title + "\n" + note.content,
-                                        preview: SharePreview("Поделиться \"\(note.title)\"")
+                                        preview: SharePreview("Падзяліцца \"\(note.title)\"")
                                     )
                                     .tint(.green)
                                     .labelStyle(.iconOnly)
@@ -137,7 +140,7 @@ struct NoteView: View {
                                         vibration.impactOccurred()
                                     } label: {
                                         withAnimation (Animation.easeOut(duration: 5)) {
-                                            Image(systemName: vm.contains(note) ? "xmark.circle" : "circle.dashed")
+                                            Image(systemName: vm.contains(note) ? "xmark.circle" : "exclamationmark.octagon.fill")
                                         }
                                     }
                                     .tint(.cyan)
@@ -146,13 +149,13 @@ struct NoteView: View {
                             .onMove(perform: activateMove)
                             .onDelete(perform: deleteNote)
                         } header: {
-                            Text ("Заметки")
+                            Text ("Нататкі")
                         }
                         
                         // MARK: - Секция действий
                         Section {
                             HStack {
-                                Text ("Снять все метки")
+                                Text ("Зняць усе пазнакі")
                                     .fontWeight(.light)
                                 Spacer ()
                                 Button { vm.toggleAll() } label: { Image (systemName: "xmark.circle") }
@@ -160,7 +163,7 @@ struct NoteView: View {
                             }
                             .listRowBackground(LinearGradient(colors: [CustomColor.accentTint, .white, .white.opacity(0.8)], startPoint: .trailing, endPoint: .leading))
                             HStack {
-                                Text ("Удалить все")
+                                Text ("Выдаліць усё")
                                     .fontWeight(.light)
                                     .foregroundColor(.black)
                                 Spacer ()
@@ -169,35 +172,35 @@ struct NoteView: View {
                                 } label: { Image (systemName: "trash") }
                                     .alert(isPresented:$showingAlert) {
                                         Alert(
-                                            title: Text("Внимание!"),
-                                            message: Text("Вы уверенны, что хотите удалить все записи? Выполняемые действия необратимы."),
-                                            primaryButton: .destructive(Text("Удалить")) {
+                                            title: Text("Увага!"),
+                                            message: Text("Вы ўпэўненыя, што хочаце выдаліць усе запісы? Выконваемыя дзеянні незваротныя."),
+                                            primaryButton: .destructive(Text("Выдаліць")) {
                                                 withAnimation {
                                                     cleaner()
                                                 }
                                             },
-                                            secondaryButton: .cancel(Text("Отмена"))
+                                            secondaryButton: .cancel(Text("Адмена"))
                                         )
                                     }
                                     .foregroundColor (.red)
                             }
                             .listRowBackground(LinearGradient(colors: [CustomColor.bin, .white.opacity(0.8), .white], startPoint: .trailing, endPoint: .leading))
                         } header: {
-                            Text("Быстрые действия")
+                            Text("Хуткія дзеянні")
                         }
                     }
                 }
                 .scrollIndicators(.hidden)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button { withAnimation { self.newNoteSheetIsShowing.toggle() } } label: { Label("Добавить заметку", systemImage: "pencil.and.outline") }
+                        Button { withAnimation { self.newNoteSheetIsShowing.toggle() } } label: { Label("Дадаць нататку", systemImage: "pencil.and.outline") }
                             .frame(width: 55, height: 35)
                             .tint(.black)
                     }
                 }
-                .navigationTitle("Заметки")
+                .navigationTitle("Нататкі")
                 .navigationBarTitleDisplayMode(.automatic)
-                .searchable(text: $searchText , prompt: "Поиск")
+                .searchable(text: $searchText , prompt: "Пошук")
             }
         }
         .sheet(isPresented: $newNoteSheetIsShowing) {

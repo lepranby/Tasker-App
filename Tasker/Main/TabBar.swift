@@ -12,14 +12,14 @@ struct TabBar: View {
     
     var body: some View {
         TabView {
-                HomeView()
-                    .tabItem {
-                        Label("Заметки", systemImage: "calendar.day.timeline.leading")
-                    }
-                SettingsView()
-                    .tabItem {
-                        Label("Настройки", systemImage: "gear.badge.checkmark")
-                    }
+            HomeView()
+                .tabItem {
+                    Label("Нататкі", systemImage: "calendar.day.timeline.leading")
+                }
+            SettingsView()
+                .tabItem {
+                    Label("Налады", systemImage: "person.badge.key.fill")
+                }
         }
         .accentColor(Color.black)
         .onAppear {

@@ -21,13 +21,14 @@ struct LockedView: View {
             VStack {
                 Spacer()
                 HStack {
-                    Text("Требуется FaceID")
+                    Text("Патрабуецца FaceID")
                         .font(.title3)
                         .fontWeight(.light)
+                        .frame(width: 220)
                 }
                 .padding(.horizontal, 112)
                 .padding(.bottom, 15)
-                Button("Разблокировать") { security.authenticate() }
+                Button("Разблакаваць") { security.authenticate() }
                     .buttonStyle(CustomButton())
                     .padding(.bottom, 240)
             }

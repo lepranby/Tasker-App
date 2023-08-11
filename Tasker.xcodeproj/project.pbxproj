@@ -19,6 +19,7 @@
 		266AE1E32A4EE08800733554 /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266AE1E22A4EE08800733554 /* NotesData.swift */; };
 		266AE1E52A4EE0A900733554 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266AE1E42A4EE0A900733554 /* NoteView.swift */; };
 		266AE1E72A4EE0C300733554 /* NewNoteSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266AE1E62A4EE0C300733554 /* NewNoteSheetView.swift */; };
+		267F0DA22A8611EB005B45ED /* ProfilePhotoLoaderSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267F0DA12A8611EB005B45ED /* ProfilePhotoLoaderSheet.swift */; };
 		26E3AD632A6AA4FF0089B28B /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3AD622A6AA4FF0089B28B /* CustomColor.swift */; };
 		26E3AD6D2A7080E20089B28B /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3AD6C2A7080E20089B28B /* CustomButton.swift */; };
 		26E64C4E2A654DB900A3855A /* SecurityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E64C4D2A654DB900A3855A /* SecurityData.swift */; };
@@ -40,6 +41,7 @@
 		266AE1E22A4EE08800733554 /* NotesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesData.swift; sourceTree = "<group>"; };
 		266AE1E42A4EE0A900733554 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		266AE1E62A4EE0C300733554 /* NewNoteSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteSheetView.swift; sourceTree = "<group>"; };
+		267F0DA12A8611EB005B45ED /* ProfilePhotoLoaderSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoLoaderSheet.swift; sourceTree = "<group>"; };
 		26E3AD622A6AA4FF0089B28B /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
 		26E3AD6C2A7080E20089B28B /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		26E64C4D2A654DB900A3855A /* SecurityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityData.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				26937A282A56CFF100D3C8E3 /* Notes */,
 				266AE1E62A4EE0C300733554 /* NewNoteSheetView.swift */,
 				266AE1DC2A4EDFAA00733554 /* SettingsView.swift */,
+				267F0DA12A8611EB005B45ED /* ProfilePhotoLoaderSheet.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				26E64C512A654F4300A3855A /* LockedView.swift in Sources */,
 				266AE1DB2A4EDF5C00733554 /* TabBar.swift in Sources */,
 				266AE1DD2A4EDFAA00733554 /* SettingsView.swift in Sources */,
+				267F0DA22A8611EB005B45ED /* ProfilePhotoLoaderSheet.swift in Sources */,
 				266AE1E52A4EE0A900733554 /* NoteView.swift in Sources */,
 				261B58052A543C4200B0AD43 /* NoteViewExtension.swift in Sources */,
 				266AE1E12A4EDFDE00733554 /* HomeView.swift in Sources */,

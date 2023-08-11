@@ -16,6 +16,6 @@ struct CustomButton: ButtonStyle {
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .scaleEffect(configuration.isPressed ? 1.2 : 1)
-            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
+            .animation(.easeOut(duration: 0.1), value: configuration.isPressed)
     }
 }

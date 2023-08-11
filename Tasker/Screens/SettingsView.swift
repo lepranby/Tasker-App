@@ -10,10 +10,11 @@ struct SettingsView: View {
     @StateObject private var security = SecurityData()
     @Environment(\.scenePhase) var scenePhase
     
-    // MARK: - свитчер на FaceID
+    @State private var profileSheet = false
+    private var username = "Aleksej Shapran"
     
     var content: some View {
-        Toggle("Использовать FaceID", isOn: $security.isAppLockEnabled)
+        Toggle("Выкарыстоўваць FaceID", isOn: $security.isAppLockEnabled)
             .fontWeight(.light)
             .onChange(of: security.isAppLockEnabled, perform: { value in
                 security.appLockStateChange(value)
@@ -26,12 +27,44 @@ struct SettingsView: View {
             })
     }
     
-    // MARK: - Главная вью
-    
     var body: some View {
         
         NavigationView {
-            List {
+            Form {
+                Section {
+                    HStack{
+                        Text("Змяніць фота профілю")
+                            .fontWeight(.light)
+                            .foregroundColor(.black)
+                        Spacer()
+                        Image(systemName: "camera.shutter.button")
+                    }
+                }
+                .onTapGesture {
+                    withAnimation { self.profileSheet.toggle() }
+                }
+                Section {
+                    HStack {
+                        Button("Адзначаныя нататкі") {
+                            print("Hello")
+                        }
+                        .fontWeight(.light)
+                        .foregroundColor(.black)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                                .font(.system(size: 14))
+                    }
+                    HStack {
+                        Button("Мова") {
+                            print("Hello")
+                        }
+                        .fontWeight(.light)
+                        .foregroundColor(.black)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                                .font(.system(size: 14))
+                    }
+                }
                 Section {
                     HStack {
                         content
@@ -48,68 +81,80 @@ struct SettingsView: View {
                             })
                     }
                 } header: {
-                    Text("Доступ")
+                    Text("Настройка доступу")
+                } footer: {
+                    Text("Калі настройка ўключана, дадатак будзе блакавацца ў фонавым рэжыме, або пры яго паўторным запуску.")
                 }
                 Section {
                     HStack {
-                        Text ("Версия приложения")
+                        Text ("Версія")
                             .fontWeight(.light)
                         Spacer ()
-                        Text("0.12")
+                        Text("1.19")
                     }
                     HStack {
-                        Text ("Номер сборки")
+                        Text ("Нумар сборцы")
                             .fontWeight(.light)
                         Spacer ()
-                        Text("9")
+                        Text("11")
                     }
                 } header: {
-                    Text("О приложении")
+                    Text("Аб дадатку")
                 }
                 Section {
+                    HStack{
+                        Link("Перайсці на GitHub праекта", destination: URL(string: "https://github.com/lepranby")!)
+                            .fontWeight(.light)
+                            .foregroundColor(.black)
+                        Spacer()
+                        Image(systemName: "qrcode")
+                    }
+                    HStack{
+                        Link("Напісаць аўтару ў Twitter / X", destination: URL(string: "https://twitter.com/aleksejdev?s=11")!)
+                            .fontWeight(.light)
+                            .foregroundColor(.black)
+                        Spacer()
+                        Image(systemName: "bird")
+                    }
                     HStack {
-                        Link("ReadMe об изменениях", destination: URL(string: "https://github.com/lepranby/Tasker-App/blob/main/Tasker/App/DiplomaReadme.md")!)
+                        Link("Чытаць ReadMe аб зменах", destination: URL(string: "https://github.com/lepranby/Tasker-App/blob/main/Tasker/App/DiplomaReadme.md")!)
                             .fontWeight(.light)
                             .foregroundColor(.black)
                         Spacer()
                         Image(systemName: "doc.text")
                     }
                 } header: {
-                    Text("Документация")
-                }
-                Section {
-                    HStack {
-                        Text ("Автор")
-                            .fontWeight(.light)
-                        Spacer ()
-                        Text("Алексей Шапран")
-                            .fontWeight(.regular)
-                            .foregroundColor(.cyan)
-                    }
-                    HStack {
-                        Text ("GitHub")
-                            .fontWeight(.light)
-                        Spacer ()
-                        Link("lepranby", destination: URL(string: "https://github.com/lepranby")!)
-                            .fontWeight(.light)
-                            .foregroundColor(.black)
-                    }
-                    HStack {
-                        Text ("Twitter / X")
-                            .fontWeight(.light)
-                        Spacer ()
-                        Link("aleksejDev", destination: URL(string: "https://twitter.com/aleksejdev?s=11")!)
-                            .fontWeight(.light)
-                            .foregroundColor(.black)
-                    }
-                } header: {
-                    Text("Об авторе")
-                } footer: {
-                    Text("Группа I29-onl в школе TeachMeSkills. Это мой дипломный проект. Всем спасибо за внимание и встретимся на просторах AppStore 🤓")
-                        .padding(.top, 10)
+                    Text("Тэхнічная падтрымка")
                 }
             }
-            .navigationTitle("Настройки ")
+            .scrollIndicators(.hidden)
+            .navigationTitle("Налады")
+            .navigationBarTitleDisplayMode(.automatic)
+            .navigationBarItems(
+                leading:
+                    Text(username)
+                    .font(.body)
+                    .foregroundColor(Color(.systemGray)),
+                trailing:
+                Image("profile")
+                    .resizable()
+                    .frame(width: 34, height: 34)
+                    .clipShape(Circle())
+                    .contextMenu(menuItems: {
+                        Button {
+                            // action saved profile photo
+                        } label: { Label("Змяніць фота профілю", systemImage: "camera.on.rectangle") }
+                    }, preview: {
+                        Image("profile")
+                            .resizable()
+                            .frame(width: 160, height: 160)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    })
+            )
+        }
+        .sheet(isPresented: $profileSheet) {
+            ProfilePhotoLoaderSheet()
+                .presentationDetents([.fraction(0.6)])
         }
     }
 }
