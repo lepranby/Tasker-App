@@ -16,7 +16,7 @@ struct NewNoteSheetView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section (header: Text("Заголовок")) {
+                Section (header: Text("Загаловак")) {
                     TextField("", text: $title)
                         .submitLabel(.continue)
                 }
@@ -25,8 +25,8 @@ struct NewNoteSheetView: View {
                         .submitLabel(.done)
                         .font(.callout)
                         .fontWeight(.light)
-                } header: { Text("Заметка") } footer: {
-                    Text("Рекомендуемое количество символов: \(content.count)/120")
+                } header: { Text("Нататка") } footer: {
+                    Text("Рэкамендуемая колькасць сімвалаў: \(content.count)/120")
                         .font(.footnote)
                         .fontWeight(.light)
                         .multilineTextAlignment(.leading)
@@ -34,7 +34,7 @@ struct NewNoteSheetView: View {
                 }
             }
             .padding(.top, -5)
-            .navigationTitle("Добавить запись")
+            .navigationTitle("Дадаць запіс")
             .navigationBarTitleDisplayMode(.inline)
             
             .toolbar(content: {
@@ -42,7 +42,7 @@ struct NewNoteSheetView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Label("Отмена", systemImage: "xmark")
+                        Label("Адмена", systemImage: "xmark")
                             .labelStyle(.iconOnly)
                             .foregroundColor(.red)
                     }
@@ -52,7 +52,7 @@ struct NewNoteSheetView: View {
                         NavigationLink {} label: {
                             Button {
                                 if content.isEmpty {
-                                    let empty = "Нет описания."
+                                    let empty = "Няма апісання."
                                     withAnimation (Animation.easeOut(duration: 15)) {
                                         notes.addNote(title: title, content: empty)
                                     }
@@ -64,7 +64,7 @@ struct NewNoteSheetView: View {
                                     dismiss()
                                 }
                             } label: {
-                                Label("Сохранить", systemImage: "checkmark")
+                                Label("Захаваць", systemImage: "checkmark")
                                     .labelStyle(.iconOnly)
                                 .tint(.teal) }
                         }

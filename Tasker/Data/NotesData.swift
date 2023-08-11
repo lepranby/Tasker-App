@@ -34,7 +34,7 @@ struct Note : Codable, Identifiable {
                 return
             }
         }
-        notes = [Note(title: "Introducing.", content: "Привет! Это мой дипломный проект написанный на SwiftUI. Enjoy! 👋🏼🤓", timeStamp: date.getFormattedDate(format: "HH:mm dd.MM.yyyy"))]
+        notes = [Note(title: "Introducing.", content: "Привет! Это мой дипломный проект написанный на SwiftUI. Предлагаю потратить пару минут на знакомства с приложением. Enjoy! 👋🏼🤓", timeStamp: date.getFormattedDate(format: "HH:mm dd.MM.yyyy"))]
     }
     
     func addNote(title: String, content: String) {
